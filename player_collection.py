@@ -1,4 +1,3 @@
-from tkinter import RADIOBUTTON
 import urllib.request
 from pprint import pprint
 import json
@@ -12,7 +11,7 @@ def get_json(url):
     response_text = f.read().decode('utf-8')
     response_data = json.loads(response_text)
     return response_data
-riot_apikey = 'RGAPI-f6be3f32-59f4-4342-b7e1-34ee1c34fef7'
+riot_apikey = 'RGAPI-d195ec68-6e3f-4d65-bf41-eea0ff496351'
 puuid_api = 'https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'
 match_history_api = 'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 match_data_api = 'https://americas.api.riotgames.com/lol/match/v5/matches/'
@@ -34,7 +33,7 @@ match_history = []
 def get_matches(ids):
     type ='normal'
     start = 0
-    count = 1
+    count = 20
     for items in ids: 
         json = get_json(f'{match_history_api}{items}/ids?type={type}&start={start}&count={count}&api_key={riot_apikey}')
         for match_ids in json:
@@ -56,25 +55,15 @@ player_crawl = []
 def get_more_puuids(games):
     for items in games:
         players = items['metadata']['participants']
-        for ids in players:
-            player_crawl.append(ids)
+        participants = {"participants": players}
+        player_crawl.append(participants)
     return player_crawl
 
-get_more_puuids(match_data)
+pprint(get_more_puuids(match_data))
 
-aram_matches = []
-def get_aram(players):
-    total_matches = get_matches(players)
-    total_data = get_match_data(total_matches)
-    for items in total_data: 
-        if items['info']['gameMode'] == 'ARAM':
-            aram_matches.append(items)
-    return aram_matches
-
-pprint(get_aram(player_crawl))
-
-
-
+json_object = json.dumps(player_crawl, indent = 4)
+with open("summoners_puuids.json", "w") as outfile: 
+    outfile.write(json_object)
 
 
 
