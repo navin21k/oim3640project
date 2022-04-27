@@ -23,7 +23,7 @@ def get_data():
     while True:
         current_time = time.time()
         elapsed_time = current_time - start_time
-        if elapsed_time> 30:
+        if elapsed_time> 20:
             data = get_match_data(match_ids[first:last])
             for items in data: 
                 match_data.append(items)
@@ -31,7 +31,7 @@ def get_data():
             last =+ 20
             elapsed_time = 0
             start_time = time.time()
-        if last >= 40:
+        if last >= 4000:
             break
     return match_data
 
