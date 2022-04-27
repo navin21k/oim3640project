@@ -5,7 +5,7 @@ import json
 from player_collection import get_match_data
 import time
  
-def load_json():
+def yoink_json():
     g = open('matches.json')
     global match_ids
     matches = json.load(g)
@@ -13,7 +13,7 @@ def load_json():
         match_ids = item["match_id"]
     return match_ids
 
-load_json()
+yoink_json()
 
 def get_data(): 
     global match_data 
@@ -29,10 +29,10 @@ def get_data():
             for items in data: 
                 match_data.append(items)
             first += 20
-            last =+ 20
+            last += 20
             elapsed_time = 0
             start_time = time.time()
-        if last > 20:
+        if last >= 40:
             break
     return match_data
 
@@ -55,10 +55,11 @@ def get_winrate():
         for player in participants:
             game = {"champion": player["championName"], "win": player["win"]}
             outcome.append(game)
-    json_object = json.dumps(outcome, indent = 4)
-    with open("winrate.json", "w") as outfile: 
-        outfile.write(json_object)
+    return outcome
+    # json_object = json.dumps(outcome, indent = 4)
+    # with open("winrate.json", "w") as outfile: 
+    #     outfile.write(json_object)
 
-get_winrate()
+pprint(get_winrate())
 
 
