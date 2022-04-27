@@ -24,8 +24,6 @@ def get_data():
     while True:
         current_time = time.time()
         elapsed_time = current_time - start_time
-        if last >= 25:
-            break
         if elapsed_time > 30:
             data = get_match_data(match_ids[first:last])
             for items in data: 
@@ -34,6 +32,8 @@ def get_data():
             last =+ 20
             elapsed_time = 0
             start_time = time.time()
+        if last > 20:
+            break
     return match_data
 
 get_data()
