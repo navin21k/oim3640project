@@ -1,3 +1,4 @@
+from re import A
 import urllib.request
 from pprint import pprint
 import json
@@ -23,7 +24,9 @@ def get_data():
     while True:
         current_time = time.time()
         elapsed_time = current_time - start_time
-        if elapsed_time> 20:
+        if last >= 25:
+            break
+        if elapsed_time > 30:
             data = get_match_data(match_ids[first:last])
             for items in data: 
                 match_data.append(items)
@@ -31,19 +34,31 @@ def get_data():
             last =+ 20
             elapsed_time = 0
             start_time = time.time()
-        if last >= 4000:
-            break
     return match_data
 
 get_data()
 
 def get_arams(): 
+    global aram_data
     aram_data = []
     for items in match_data: 
         if items['info']['gameMode'] == 'ARAM':
             aram_data.append(items)
-    json_object = json.dumps(aram_data, indent = 4)
-    with open("aram_data.json", "w") as outfile: 
-        outfile.write(json_object)
+    return aram_data
 
 get_arams()
+
+def get_winrate(): 
+    outcome = []
+    for items in aram_data: 
+        participants = items["info"]["participants"]
+        for player in participants:
+            game = {"champion": player["championName"], "win": player["win"]}
+            outcome.append(game)
+    json_object = json.dumps(outcome, indent = 4)
+    with open("winrate.json", "w") as outfile: 
+        outfile.write(json_object)
+
+get_winrate()
+
+
