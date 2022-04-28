@@ -32,7 +32,7 @@ def get_data():
             last += 20
             elapsed_time = 0
             start_time = time.time()
-        if last >= 4000:
+        if last >= 2000:
             break
     return match_data
 
@@ -56,7 +56,7 @@ def get_winrate():
             game = {"champion": player["championName"], "win": player["win"]}
             outcome.append(game)
     json_object = json.dumps(outcome, indent = 4)
-    with open("winrate.json", "w") as outfile: 
+    with open("winrate.json1", "w") as outfile: 
         outfile.write(json_object)
 
 get_winrate()
