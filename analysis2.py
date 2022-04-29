@@ -3,7 +3,7 @@ import pprint as pp
 
 #load file
 def load_json():
-    f=open('winrate1.json')
+    f=open('aram_gamedata.json')
     global winrate
     winrate=json.load(f)
     return winrate
@@ -49,9 +49,9 @@ def team_split():
         game = items
         for player in game:
             if player["win"] == True:
-                team1.append(player)
+                team1.append(player["champion"])
             else:
-                team2.append(player)
+                team2.append(player["champion"])
         game = {"winner": team1, "loser" : team2}
         team_list.append(game)
     return team_list
