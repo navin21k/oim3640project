@@ -41,20 +41,29 @@ def game_split():
 game_split()
 
 def team_split(): 
+    global team_list
     team_list = []
     for items in total_games:
         team1 = []
         team2= []
-        for player in items():
+        game = items
+        for player in game:
             if player["win"] == True:
                 team1.append(player)
             else:
                 team2.append(player)
-        game = [team1, team2]
+        game = {"winner": team1, "loser" : team2}
         team_list.append(game)
     return team_list
 
-pp.pprint(team_split())
+team_split()
+
+def save_file(): 
+    json_object = json.dumps(team_list, indent = 4)
+    with open("winloss.json", "w") as outfile: 
+        outfile.write(json_object)
+
+save_file()
 
 
 
