@@ -2,6 +2,8 @@ import urllib.request
 from pprint import pprint
 import json
 
+from config import API_KEY1
+
 def get_json(url):
     """
     Given a properly formatted URL for a JSON web API request, return
@@ -11,7 +13,8 @@ def get_json(url):
     response_text = f.read().decode('utf-8')
     response_data = json.loads(response_text)
     return response_data
-riot_apikey = 'RGAPI-d195ec68-6e3f-4d65-bf41-eea0ff496351'
+
+riot_apikey = API_KEY1
 puuid_api = 'https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'
 match_history_api = 'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 match_data_api = 'https://americas.api.riotgames.com/lol/match/v5/matches/'

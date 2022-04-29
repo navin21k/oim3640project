@@ -53,9 +53,7 @@ def versus_winrate():
         counter_list = {champs : counter_rate}
         versus_champ_winrate.append(counter_list)
     return versus_champ_winrate
-
 versus_winrate()
-        
 def synergy_winrate(): 
     global synergy_champ_winrate
     synergy_champ_winrate = []
@@ -79,8 +77,8 @@ def synergy_winrate():
         synergy_list = {champs : synergy_rate}
         synergy_champ_winrate.append(synergy_list)
     return synergy_champ_winrate
-        
-synergy_winrate()        
+
+synergy_winrate()
 
 def save_file(): 
     json_object1 = json.dumps(versus_champ_winrate, indent = 4)
