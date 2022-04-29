@@ -21,6 +21,14 @@ def summoner_name_to_encrypted(summoner_name):
     
 def live_game_finder(name):
     encrypted_id=summoner_name_to_encrypted(name)
-    get_json(f'{live_game_finder_api}{encrypted_id}?api_key={API_KEY1}')
+    big_live_boi=get_json(f'{live_game_finder_api}{encrypted_id}?api_key={API_KEY1}')
+    gamemode=big_live_boi['gameMode']
+    champions=[]
+    for i in big_live_boi['participants']:
+        
+        champions.append()
+
+
+
 
 print(summoner_name_to_encrypted())
