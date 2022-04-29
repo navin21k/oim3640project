@@ -26,11 +26,11 @@ def get_puuid(ids):
     for items in ids:
         id = items['summoner']
         tag = items['tagline']
-        json = get_json(f'{puuid_api}{id}/{tag}?api_key={riot_apikey}')
-        puuid.append(json['puuid'])
+        output = get_json(f'{puuid_api}{id}/{tag}?api_key={riot_apikey}')
+        puuid.append(output['puuid'])
     return puuid
 
-get_puuid(riot_id)
+# get_puuid(riot_id)
 
 match_history = []
 def get_matches(ids):
@@ -43,7 +43,7 @@ def get_matches(ids):
             match_history.append(match_ids)
     return match_history
     
-get_matches(puuid)
+# get_matches(puuid)
 
 match_data = []
 def get_match_data(matches): 
@@ -52,7 +52,7 @@ def get_match_data(matches):
         match_data.append(json)
     return match_data
 
-get_match_data(match_history)
+# get_match_data(match_history)
 
 player_crawl = []
 def get_more_puuids(games):
@@ -62,7 +62,7 @@ def get_more_puuids(games):
         player_crawl.append(participants)
     return player_crawl
 
-pprint(get_more_puuids(match_data))
+# pprint(get_more_puuids(match_data))
 
 
 
