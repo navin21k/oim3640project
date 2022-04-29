@@ -1,5 +1,4 @@
 from re import A
-import urllib.request
 from pprint import pprint
 import json
 from player_collection import get_match_data
