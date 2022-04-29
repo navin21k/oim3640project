@@ -64,9 +64,6 @@ def get_more_puuids(games):
 
 pprint(get_more_puuids(match_data))
 
-json_object = json.dumps(player_crawl, indent = 4)
-with open("summoners_puuids.json", "w") as outfile: 
-    outfile.write(json_object)
 
 
 

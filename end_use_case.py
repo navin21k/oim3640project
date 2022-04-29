@@ -3,7 +3,6 @@ import json
 import urllib
 
 summoner_name_to_encrypted_api="https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-'151433x?api_key=RGAPI-304ed216-0466-4eea-abed-3716b4d04aeb'
 
 def get_json(url):
     """
@@ -15,7 +14,8 @@ def get_json(url):
     response_data = json.loads(response_text)
     return response_data
 
-def summoner_name_to_encrypted(summoner_name):
-    encrypted_summoner_id=get_json(f'{summoner_name_to_encrypted_api}/{summoner_name}?api_key={riot_apikey}')
+def summoner_name_to_encrypted():
+    encrypted_summoner_id=get_json("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/naaaaavin?api_key=RGAPI-60746c4e-c609-4ee5-8394-851977ea8750")
     return encrypted_summoner_id
-print(summoner_name_to_encrypted('151433x'))
+
+print(summoner_name_to_encrypted())
