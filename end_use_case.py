@@ -1,3 +1,5 @@
+from readline import append_history_file
+from flask import appcontext_popped
 from config import API_KEY1
 from player_collection import riot_apikey
 import json
@@ -23,10 +25,14 @@ def live_game_finder(name):
     encrypted_id=summoner_name_to_encrypted(name)
     big_live_boi=get_json(f'{live_game_finder_api}{encrypted_id}?api_key={API_KEY1}')
     gamemode=big_live_boi['gameMode']
-    champions=[]
+    team_1=[]
+    team_2=[]
     for i in big_live_boi['participants']:
-        
-        champions.append()
+        if i['teamID']=='100':
+            team_1.append(i['championID'])
+        else:
+            team_2.append(i['ChampionID'])
+    return team_1,team_2,gamemode
 
 
 
