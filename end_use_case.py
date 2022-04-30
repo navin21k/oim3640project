@@ -1,6 +1,3 @@
-from cgi import print_environ
-from tkinter.font import names
-from unicodedata import name
 from config import API_KEY1
 from player_collection import riot_apikey
 import json
