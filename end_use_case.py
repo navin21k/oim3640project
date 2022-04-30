@@ -1,3 +1,4 @@
+from cgi import print_environ
 from tkinter.font import names
 from unicodedata import name
 from config import API_KEY1
@@ -23,13 +24,11 @@ def loadData():
     champion_names = pickle.load(picklefile)
     picklefile.close()
     return champion_names
-
-def summoner_name_to_encrypted(summoner_name):
-    encrypted_summoner_json=get_json(f"{summoner_name_to_encrypted}{summoner_name}?api_key={API_KEY1}")
-    return encrypted_summoner_json['id']
-
 list_bois=loadData()
 
+def summoner_name_to_encrypted(summoner_name):
+    encrypted_summoner_json=get_json(f'{summoner_name_to_encrypted_api}{summoner_name}?api_key={API_KEY1}')
+    return encrypted_summoner_json['id']
 def live_game_finder(name,champs):
     encrypted_id=summoner_name_to_encrypted(name)
     big_live_boi=get_json(f'{live_game_finder_api}{encrypted_id}?api_key={API_KEY1}')
@@ -38,11 +37,11 @@ def live_game_finder(name,champs):
     team_1=[]
     team_2=[]
     for i in big_live_boi['participants']:
-        if i['teamID']=='100':
-            team_1.append(champs[i]['championID'])
+        if i['teamId']=='100':
+            team_1.append(champs[i]['summonerId'])
             team_1.append(i)['summonerName']
         else:
-            team_1.append(champs[i]['championID'])
+            team_1.append(champs[i]['summonerId'])
             team_2.append(i)['summonerName']    
     return team_1,team_2,gamemode
 
@@ -61,6 +60,8 @@ def loadData():
     champion_names = pickle.load(picklefile)
     picklefile.close()
     return champion_names
+
+print(live_game_finder('Pathfinder',list_bois))
 
 
 
