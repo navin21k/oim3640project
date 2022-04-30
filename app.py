@@ -10,9 +10,9 @@ def feeder():
         global live_game
         live_game=request.form["riot_id"]
         try:
-            team1,team2,gamemode=live_game_finder(live_game,list_bois)
+            team_1_players,team_1_champs,team_2_champs,team_2_players,gamemode=live_game_finder(live_game,list_bois)
             if gamemode!='ARAM':
                 print("we only show ARAM data")
         except TypeError:
             print("there is no live game with this username.")
-        return render_template("final_page.html",team1=team1,team2=team2)
+        return render_template("final_page.html",team_1_players=team_1_players,team_1_champs=team_1_champs,team_2_players=team_2_players,team_2_champs=team_2_champs,gamemode=gamemode)

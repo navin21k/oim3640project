@@ -1,6 +1,5 @@
 import pprint as pp
 import json
-
 from matplotlib.font_manager import json_load
 
 def load_json():

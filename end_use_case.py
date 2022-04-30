@@ -6,6 +6,7 @@ from player_collection import riot_apikey
 import json
 import urllib
 import pickle
+import pprint as pp
 summoner_name_to_encrypted_api="https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
 live_game_finder_api='https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
 def get_json(url):
@@ -29,23 +30,27 @@ list_bois=loadData()
 def summoner_name_to_encrypted(summoner_name):
     encrypted_summoner_json=get_json(f'{summoner_name_to_encrypted_api}{summoner_name}?api_key={API_KEY1}')
     return encrypted_summoner_json['id']
+
 def live_game_finder(name,champs):
     encrypted_id=summoner_name_to_encrypted(name)
     big_live_boi=get_json(f'{live_game_finder_api}{encrypted_id}?api_key={API_KEY1}')
-    
     gamemode=big_live_boi['gameMode']
-    team_1=[]
-    team_2=[]
+    team_1_players=[]
+    team_1_champs=[]
+    team_2_players=[]
+    team_2_champs=[]
+
     for i in big_live_boi['participants']:
-        if i['teamId']=='100':
-            team_1.append(champs[i]['summonerId'])
-            team_1.append(i)['summonerName']
+        if i['teamId']==100:
+            team_1_champs.append(champs[str(i['championId'])])
+            team_1_players.append(i['summonerName'])
         else:
-            team_1.append(champs[i]['summonerId'])
-            team_2.append(i)['summonerName']    
-    return team_1,team_2,gamemode
+            team_2_champs.append(champs[str(i['championId'])])
+            team_2_players.append(i['summonerName'])    
+    return team_1_players,team_1_champs,team_2_champs,team_2_players,gamemode
 
 def get_list_champs():
+    """created a dictionary"""
     names=dict(line.rstrip().split(':', 1) for line in open('champion_ids.txt'))
     return names
 
@@ -61,8 +66,5 @@ def loadData():
     picklefile.close()
     return champion_names
 
-print(live_game_finder('Pathfinder',list_bois))
+pp.pprint(live_game_finder('pathfinder',list_bois))
 
-
-
-print(loadData())
