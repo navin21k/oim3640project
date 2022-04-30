@@ -19,13 +19,13 @@ def get_json(url):
     response_data = json.loads(response_text)
     return response_data
 
-def loadData():
-    # for reading also binary mode is important
-    picklefile = open('./champion_ids.pickle','rb')     
-    champion_names = pickle.load(picklefile)
-    picklefile.close()
-    return champion_names
-list_bois=loadData()
+# def loadData():
+#     # for reading also binary mode is important
+#     picklefile = open('./champion_ids.pickle','rb')     
+#     champion_names = pickle.load(picklefile)
+#     picklefile.close()
+#     return champion_names
+# list_bois=loadData()
 
 def summoner_name_to_encrypted(summoner_name):
     encrypted_summoner_json=get_json(f'{summoner_name_to_encrypted_api}{summoner_name}?api_key={API_KEY1}')
@@ -39,7 +39,6 @@ def live_game_finder(name,champs):
     team_1_champs=[]
     team_2_players=[]
     team_2_champs=[]
-
     for i in big_live_boi['participants']:
         if i['teamId']==100:
             team_1_champs.append(champs[str(i['championId'])])
@@ -54,17 +53,15 @@ def get_list_champs():
     names=dict(line.rstrip().split(':', 1) for line in open('champion_ids.txt'))
     return names
 
-picklefile = open('./champion_ids.pickle','wb')      
-# source, destination
-pickle.dump(get_list_champs(), picklefile)                     
-picklefile.close()
+# picklefile = open('/champion_ids.pickle','wb')      
+# # source, destination
+# pickle.dump(get_list_champs(), picklefile)                     
+# picklefile.close()
 
-def loadData():
-    # for reading also binary mode is important
-    picklefile = open('./champion_ids.pickle','rb')     
-    champion_names = pickle.load(picklefile)
-    picklefile.close()
-    return champion_names
-
-pp.pprint(live_game_finder('pathfinder',list_bois))
+# def loadData():
+#     # for reading also binary mode is important
+#     picklefile = open('./champion_ids.pickle','rb')     
+#     champion_names = pickle.load(picklefile)
+#     picklefile.close()
+#     return champion_names
 
